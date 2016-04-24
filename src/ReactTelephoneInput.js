@@ -78,6 +78,7 @@ var ReactTelephoneInput = React.createClass({
     },
     propTypes: {
         value: React.PropTypes.string,
+        className: React.PropTypes.string,
         autoFormat: React.PropTypes.bool,
         defaultCountry: React.PropTypes.string,
         onlyCountries: React.PropTypes.arrayOf(React.PropTypes.object),
@@ -88,6 +89,7 @@ var ReactTelephoneInput = React.createClass({
     getDefaultProps() {
         return {
             value: '',
+            className: '',
             autoFormat: true,
             onlyCountries: allCountries,
             defaultCountry: allCountries[1].iso2,
@@ -485,8 +487,10 @@ var ReactTelephoneInput = React.createClass({
 
         var inputFlagClasses = `flag ${this.state.selectedCountry.iso2}`;
 
+        var wrapperClass = this.props.className + ' react-tel-input';
+
         return (
-            <div className='react-tel-input'>
+            <div className={wrapperClass}>
                 <input
                     onChange={this.handleInput}
                     onClick={this.handleInputClick}
