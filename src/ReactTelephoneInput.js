@@ -83,6 +83,7 @@ var ReactTelephoneInput = React.createClass({
         className: React.PropTypes.string,
         autoFormat: React.PropTypes.bool,
         defaultCountry: React.PropTypes.string,
+        placeholder: React.PropTypes.string,
         onlyCountries: React.PropTypes.arrayOf(React.PropTypes.object),
         preferredCountries: React.PropTypes.arrayOf(React.PropTypes.object),
         onChange: React.PropTypes.func,
@@ -96,6 +97,7 @@ var ReactTelephoneInput = React.createClass({
             onlyCountries: allCountries,
             defaultCountry: allCountries[1].iso2,
             isValid: isNumberValid,
+            placeholder: '+1 (702) 123-4567',
             flagsImagePath: 'flags.png',
             onEnterKeyPress: function () {}
         };
@@ -328,7 +330,7 @@ var ReactTelephoneInput = React.createClass({
     },
     handleInputFocus() {
         // if the input is blank, insert dial code of the selected country
-        if(this.refs.numberInput.value === '+') {
+        if(this.refs.numberInput.value === '+' || this.refs.numberInput.value === '') {
             this.setState({formattedNumber: '+' + this.state.selectedCountry.dialCode});
         }
     },
@@ -504,7 +506,8 @@ var ReactTelephoneInput = React.createClass({
                     type="tel"
                     className={inputClasses}
                     autoComplete='tel'
-                    placeholder='+1 (702) 123-4567'/>
+                    placeholder={this.props.placeholder}
+                />
                 <div ref='flagDropDownButton' className={flagViewClasses} onKeyDown={this.handleKeydown} >
                     <div ref='selectedFlag' onClick={this.handleFlagDropdownClick} className='selected-flag' title={`${this.state.selectedCountry.name}: + ${this.state.selectedCountry.dialCode}`}>
                         <div className={inputFlagClasses} style={this.getFlagStyle()}>
